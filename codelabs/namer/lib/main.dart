@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
-void main() {
-  print(all[1]);
-  runApp(const MyApp());
-}
+// void main() {
+//   print(all[1]);
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
