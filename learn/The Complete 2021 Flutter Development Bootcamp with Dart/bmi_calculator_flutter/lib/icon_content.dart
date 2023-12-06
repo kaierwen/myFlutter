@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-
-const textColour = Color(0xFF8D8E98);
-const textStyle = TextStyle(
-  fontSize: 18.0,
-  color: textColour,
-);
-const gap = SizedBox(
-  height: 15.0,
-);
+import 'constants.dart';
 
 class IconContent extends StatelessWidget {
   final IconData icon;
@@ -27,10 +19,10 @@ class IconContent extends StatelessWidget {
           icon,
           size: 80.0,
         ),
-        gap,
+        kGap,
         Text(
           label,
-          style: textStyle,
+          style: kLabelTextStyle,
         ),
       ],
     );
