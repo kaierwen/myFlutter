@@ -3,12 +3,8 @@ import 'package:geolocator/geolocator.dart';
 import 'networking.dart';
 
 class Location {
-  double? latitude = 0.0;
-  double? longitude = 0.0;
-
-  Location({this.latitude, this.longitude});
-
   void getCurrentLocation() async {
+    print('object');
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.low);
@@ -24,6 +20,7 @@ class Location {
     var weatherUri = Uri.https('api.openweathermap.org', '/data/2.5/weather', {
       'lat': position.latitude.toString(),
       'lon': position.longitude.toString(),
+      'units': 'metric',
       'appid': 'a57ec25fa9518f1ad890e63597ab1765',
     });
     var result = await NetworkHelper(weatherUri).getData();
