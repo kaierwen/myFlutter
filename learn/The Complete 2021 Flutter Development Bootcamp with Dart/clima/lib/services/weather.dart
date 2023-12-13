@@ -23,6 +23,25 @@ class WeatherModel {
     return result;
   }
 
+  Future getCityWeather(String cityName) async {
+    var weatherUri = Uri.https('api.openweathermap.org', '/data/2.5/weather', {
+      'q': cityName,
+      'units': 'metric',
+      'appid': 'a57ec25fa9518f1ad890e63597ab1765',
+    });
+    var result = await NetworkHelper(weatherUri).getData();
+    print('data = $result');
+    var main = result['weather'][0]['main'];
+    var temp = result['main']['temp'];
+    var name = result['name'];
+    var id = result['weather'][0]['id'];
+    print('main = $main');
+    print('temp = $temp');
+    print('name = $name');
+    print('id = $id');
+    return result;
+  }
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
