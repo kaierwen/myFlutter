@@ -40,40 +40,6 @@ class _PriceScreenState extends State<PriceScreen> {
     }
   }
 
-  // String? selectCrypto1 = cryptoList[0];
-  // String? selectCrypto2 = cryptoList[1];
-  // String? selectCrypto3 = cryptoList[2];
-
-  // String firstRate = '?';
-  // CoinData coin1 = CoinData(crypto: cryptoList[0], currency: currenciesList[0]);
-  // CoinData coin2 = CoinData(crypto: cryptoList[1], currency: currenciesList[0]);
-  // CoinData coin3 = CoinData(crypto: cryptoList[2], currency: currenciesList[0]);
-
-  // _getCoinData1(CoinData coinData) async {
-  //   double rateResult =
-  //       await api.getRate(base: coinData.crypto, quote: coinData.currency);
-  //   setState(() {
-  //     coin1.rate = rateResult.toStringAsFixed(1);
-  //   });
-  //   _getCoinData2();
-  // }
-
-  // _getCoinData2() async {
-  //   double rateResult =
-  //       await api.getRate(base: coin2.crypto, quote: coin2.currency);
-  //   setState(() {
-  //     coin2.rate = rateResult.toStringAsFixed(1);
-  //   });
-  //   _getCoinData3();
-  // }
-
-  // _getCoinData3() async {
-  //   double rateResult =
-  //       await api.getRate(base: coin3.crypto, quote: coin3.currency);
-  //   setState(() {
-  //     coin3.rate = rateResult.toStringAsFixed(1);
-  //   });
-  // }
   void _pickCurrency() {
     currentReq = 0;
     for (var coin in allCoins) {
