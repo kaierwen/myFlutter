@@ -60,28 +60,30 @@ class _ChatScreenState extends State<ChatScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              StreamBuilder(
-                stream: _firestore.collection('messages').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.lightBlueAccent,
-                      ),
+              Expanded(
+                child: StreamBuilder(
+                  stream: _firestore.collection('messages').snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.lightBlueAccent,
+                        ),
+                      );
+                    }
+                    final messages = snapshot.data!.docs.reversed;
+                    List<MessageBubble> messageBubbles = [];
+                    for (var message in messages) {
+                      final messageText = message['text'];
+                      final messageSender = message['sender'];
+                      messageBubbles.add(MessageBubble(
+                          sender: messageSender, text: messageText));
+                    }
+                    return ListView(
+                      children: messageBubbles,
                     );
-                  }
-                  final messages = snapshot.data!.docs.reversed;
-                  List<MessageBubble> messageBubbles = [];
-                  for (var message in messages) {
-                    final messageText = message['text'];
-                    final messageSender = message['sender'];
-                    messageBubbles.add(MessageBubble(
-                        sender: messageSender, text: messageText));
-                  }
-                  return Column(
-                    children: messageBubbles,
-                  );
-                },
+                  },
+                ),
               ),
               Container(
                 decoration: kMessageContainerDecoration,
