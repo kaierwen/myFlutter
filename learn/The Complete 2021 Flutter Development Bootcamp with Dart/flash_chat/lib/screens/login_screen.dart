@@ -4,6 +4,7 @@ import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -78,7 +79,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       showSpinner = false;
                     });
+                  } on FirebaseAuthException catch (e) {
+                    // 捕获FirebaseAuthException异常
+                    print(e);
+                    setState(() {
+                      showSpinner = false;
+                    });
+                    Fluttertoast.showToast(
+                      msg: e.message.toString(),
+                      toastLength: Toast.LENGTH_LONG,
+                    );
                   } catch (e) {
+                    // 捕获其他异常
                     setState(() {
                       showSpinner = false;
                     });
