@@ -17,6 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   late String messageText;
   bool showSpinner = false;
   final _messageTextController = TextEditingController();
+  String loggedInUser = '';
 
   @override
   void initState() {
@@ -25,7 +26,10 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void getCurrentUser() {
-    _auth.currentUser;
+    var currentUser = _auth.currentUser;
+    if (currentUser != null) {
+      loggedInUser = currentUser.email as String;
+    }
   }
 
   void messagesStream() async {
@@ -76,10 +80,16 @@ class _ChatScreenState extends State<ChatScreen> {
                     for (var message in messages) {
                       final messageText = message['text'];
                       final messageSender = message['sender'];
-                      messageBubbles.add(MessageBubble(
-                          sender: messageSender, text: messageText));
+                      messageBubbles.add(
+                        MessageBubble(
+                          sender: messageSender,
+                          text: messageText,
+                          isMe: loggedInUser == messageSender,
+                        ),
+                      );
                     }
                     return ListView(
+                      reverse: true,
                       children: messageBubbles,
                     );
                   },
