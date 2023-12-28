@@ -4,8 +4,8 @@ import 'package:todoey/widgets/task_tile.dart';
 
 class TaskList extends StatelessWidget {
   final List<Task> tasks;
-  final Function(int) onChanged;
-  TaskList({required this.tasks, required this.onChanged});
+  final Function(bool, int) onChanged;
+  const TaskList({required this.tasks, required this.onChanged});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,13 +15,10 @@ class TaskList extends StatelessWidget {
         itemBuilder: (context, index) {
           return TaskTile(
             task: tasks[index],
-            onChanged: onChanged(index),
+            onChanged: (value) {
+              onChanged(value!, index);
+            },
           );
-          // onChanged: (value) {
-          //   setState(() {
-          //     tasks[index].isDone = value!;
-          //   });
-          // });
         },
       ),
     );

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:todoey/models/task.dart';
 
 class TaskTile extends StatelessWidget {
-  Task task;
-  Function(bool?) onChanged;
-  TaskTile({required this.task, required this.onChanged});
+  final Task task;
+  final Function(bool?)? onChanged;
+  const TaskTile({required this.task, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

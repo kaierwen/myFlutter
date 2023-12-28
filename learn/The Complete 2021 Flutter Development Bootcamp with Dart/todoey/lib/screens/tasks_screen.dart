@@ -16,12 +16,6 @@ class _TasksScreenState extends State<TasksScreen> {
     Task(name: 'task 3'),
     Task(name: 'task 4'),
     Task(name: 'task 5'),
-    Task(name: 'task 5'),
-    Task(name: 'task 5'),
-    Task(name: 'task 5'),
-    Task(name: 'task 5'),
-    Task(name: 'task 5'),
-    Task(name: 'task 5'),
   ];
 
   @override
@@ -69,10 +63,10 @@ class _TasksScreenState extends State<TasksScreen> {
                 decoration: kTopDecoration,
                 child: TaskList(
                   tasks: tasks,
-                  onChanged: (index) {
-                    // setState(() {
-                    //   tasks[index].toggle();
-                    // });
+                  onChanged: (value, index) {
+                    setState(() {
+                      tasks[index].isDone = value;
+                    });
                   },
                 ),
               ),
@@ -84,7 +78,12 @@ class _TasksScreenState extends State<TasksScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => AddTaskScreen(),
+            builder: (context) => AddTaskScreen(addTaskCallback: (value) {
+              setState(() {
+                tasks.add(Task(name: value));
+              });
+              Navigator.pop(context);
+            }),
           );
         },
         child: Icon(Icons.add, color: Colors.white, size: 32.0),

@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:todoey/constants.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTaskScreen extends StatefulWidget {
+  final Function(String) addTaskCallback;
+
+  AddTaskScreen({required this.addTaskCallback});
+
+  @override
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  String _title = '';
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,13 +29,18 @@ class AddTaskScreen extends StatelessWidget {
             ),
             TextField(
               autofocus: true,
+              onChanged: (value) {
+                _title = value;
+              },
             ),
             SizedBox(height: 20),
             TextButton(
               style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all(Colors.lightBlueAccent)),
-              onPressed: () {},
+              onPressed: () {
+                widget.addTaskCallback(_title);
+              },
               child: Text(
                 'Add',
                 style: TextStyle(color: Colors.white),
