@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:todoey/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/models/task_model.dart';
 import 'package:todoey/widgets/task_tile.dart';
 
 class TaskList extends StatelessWidget {
-  final List<Task> tasks;
-  final Function(bool, int) onChanged;
-  const TaskList({required this.tasks, required this.onChanged});
+  const TaskList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: ListView.builder(
-        itemCount: tasks.length,
+        itemCount: Provider.of<TaskModel>(context).tasks.length,
         itemBuilder: (context, index) {
           return TaskTile(
-            task: tasks[index],
+            task: Provider.of<TaskModel>(context).tasks[index],
             onChanged: (value) {
-              onChanged(value!, index);
+              Provider.of<TaskModel>(context, listen: false).updateTask(index);
             },
           );
         },
