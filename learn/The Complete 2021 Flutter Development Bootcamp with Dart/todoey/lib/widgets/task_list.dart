@@ -8,19 +8,30 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: ListView.builder(
-        itemCount: Provider.of<TaskModel>(context).tasks.length,
-        itemBuilder: (context, index) {
-          return TaskTile(
-            task: Provider.of<TaskModel>(context).tasks[index],
-            onChanged: (value) {
-              Provider.of<TaskModel>(context, listen: false).updateTask(index);
+    return Consumer<TaskModel>(
+      builder: (BuildContext context, TaskModel taskModel, Widget? child) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: ListView.builder(
+            itemCount: taskModel.taskCount,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onLongPress: () {
+                  taskModel.deleteAt(index);
+                },
+                child: TaskTile(
+                  task: taskModel.tasks[index],
+                  onChanged: (value) {
+                    taskModel.updateTask(index);
+                    // Provider.of<TaskModel>(context, listen: false)
+                    //     .updateTask(index);
+                  },
+                ),
+              );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/foundation.dart';
 import 'package:todoey/models/task.dart';
 
@@ -8,15 +10,27 @@ class TaskModel with ChangeNotifier {
     Task(name: 'Buy eggs'),
   ];
 
-  List<Task> get tasks => _tasks;
+  /// 使用 UnmodifiableListView 创建不可变列表，使_tasks列表更安全，只通过 addTask 方法添加新元素，而不能通过其他方式添加新元素
+  UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
 
-  void addTask(Task task) {
-    _tasks.add(task);
+  int get taskCount => _tasks.length;
+
+  void addTask(String taskTitle) {
+    tasks.add(Task(name: 'name'));
+    _tasks.add(Task(name: taskTitle));
     notifyListeners();
   }
 
   void deleteTask(Task task) {
     _tasks.remove(task);
+    notifyListeners();
+  }
+
+  void deleteAt(int index) {
+    if (index < 0 || index >= _tasks.length) {
+      return;
+    }
+    _tasks.removeAt(index);
     notifyListeners();
   }
 
