@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="state_management_minimalists"
+        android:label="minimalist_state_management_timer_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
