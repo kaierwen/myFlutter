@@ -14,42 +14,67 @@ class StateButtons extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Visibility(
-              visible: value != TimePageState.finished,
-              child: GestureDetector(
-                onTap: () {
-                  timePageManager.start();
-                },
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.blue,
-                  child: Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 20),
-            Visibility(
-              visible: value != TimePageState.init,
-              child: GestureDetector(
-                onTap: () {
-                  timePageManager.finish();
-                },
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.blue,
-                  child: Icon(
-                    Icons.restart_alt,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
+            if (value == TimePageState.init) ...[
+              const StartButton(),
+            ],
+            if (value == TimePageState.started) ...[
+              const PauseButton(),
+              const SizedBox(width: 20),
+              const ResetButton(),
+            ],
+            if (value == TimePageState.paused) ...[
+              const StartButton(),
+              const SizedBox(width: 20),
+              const ResetButton(),
+            ],
+            if (value == TimePageState.finished) ...[
+              const ResetButton(),
+            ]
           ],
         );
       },
+    );
+  }
+}
+
+class StartButton extends StatelessWidget {
+  const StartButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        getIt<TimePageManager>().start();
+      },
+      child: const Icon(Icons.play_arrow),
+    );
+  }
+}
+
+class PauseButton extends StatelessWidget {
+  const PauseButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        getIt<TimePageManager>().pause();
+      },
+      child: const Icon(Icons.pause),
+    );
+  }
+}
+
+class ResetButton extends StatelessWidget {
+  const ResetButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        getIt<TimePageManager>().reset();
+      },
+      child: const Icon(Icons.replay),
     );
   }
 }

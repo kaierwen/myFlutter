@@ -9,7 +9,7 @@ class CountDownText extends StatelessWidget {
   Widget build(BuildContext context) {
     final stateManager = getIt<TimePageManager>();
     return ValueListenableBuilder(
-        valueListenable: stateManager.countDown,
+        valueListenable: stateManager.countDownText,
         builder: (context, value, child) {
           return Text(
             value,
